@@ -4,6 +4,182 @@ import './App.css'
 
 // Easing curve - architectural precision
 const ease = [0.16, 1, 0.3, 1]
+const easeOut = [0.33, 1, 0.68, 1]
+
+// Architectural Intro Loader
+const IntroLoader = ({ onComplete }) => {
+  const [phase, setPhase] = useState(0)
+  
+  useEffect(() => {
+    // Phase timing
+    const timers = [
+      setTimeout(() => setPhase(1), 100),    // Start line drawing
+      setTimeout(() => setPhase(2), 1200),   // Show SV
+      setTimeout(() => setPhase(3), 2200),   // Start fade out
+      setTimeout(() => onComplete(), 2800),  // Complete
+    ]
+    return () => timers.forEach(clearTimeout)
+  }, [onComplete])
+  
+  // Line animation variants
+  const lineVariants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: (i) => ({
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { duration: 1.2, delay: i * 0.1, ease: easeOut },
+        opacity: { duration: 0.3, delay: i * 0.1 }
+      }
+    })
+  }
+  
+  return (
+    <motion.div 
+      className="intro-loader"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: phase >= 3 ? 0 : 1 }}
+      transition={{ duration: 0.6, ease }}
+    >
+      <div className="intro-loader__content">
+        {/* Architectural grid lines */}
+        <svg 
+          className="intro-loader__grid"
+          viewBox="0 0 400 400" 
+          fill="none"
+        >
+          {/* Horizontal lines */}
+          <motion.line 
+            x1="0" y1="100" x2="400" y2="100" 
+            stroke="#C17F59" strokeWidth="0.5"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={0}
+          />
+          <motion.line 
+            x1="0" y1="200" x2="400" y2="200" 
+            stroke="#C17F59" strokeWidth="0.5"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={1}
+          />
+          <motion.line 
+            x1="0" y1="300" x2="400" y2="300" 
+            stroke="#C17F59" strokeWidth="0.5"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={2}
+          />
+          
+          {/* Vertical lines */}
+          <motion.line 
+            x1="100" y1="0" x2="100" y2="400" 
+            stroke="#C17F59" strokeWidth="0.5"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={1}
+          />
+          <motion.line 
+            x1="200" y1="0" x2="200" y2="400" 
+            stroke="#C17F59" strokeWidth="0.5"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={2}
+          />
+          <motion.line 
+            x1="300" y1="0" x2="300" y2="400" 
+            stroke="#C17F59" strokeWidth="0.5"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={3}
+          />
+          
+          {/* Diagonal accent */}
+          <motion.line 
+            x1="100" y1="300" x2="300" y2="100" 
+            stroke="#C17F59" strokeWidth="1"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={4}
+          />
+          
+          {/* Corner brackets - architectural detail */}
+          <motion.path 
+            d="M 80 80 L 80 120 M 80 80 L 120 80" 
+            stroke="#2D2926" strokeWidth="1"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={3}
+          />
+          <motion.path 
+            d="M 320 80 L 320 120 M 320 80 L 280 80" 
+            stroke="#2D2926" strokeWidth="1"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={3}
+          />
+          <motion.path 
+            d="M 80 320 L 80 280 M 80 320 L 120 320" 
+            stroke="#2D2926" strokeWidth="1"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={4}
+          />
+          <motion.path 
+            d="M 320 320 L 320 280 M 320 320 L 280 320" 
+            stroke="#2D2926" strokeWidth="1"
+            variants={lineVariants}
+            initial="hidden"
+            animate={phase >= 1 ? "visible" : "hidden"}
+            custom={4}
+          />
+        </svg>
+        
+        {/* SV Logo reveal */}
+        <motion.div 
+          className="intro-loader__logo"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ 
+            opacity: phase >= 2 ? 1 : 0, 
+            scale: phase >= 2 ? 1 : 0.8 
+          }}
+          transition={{ duration: 0.6, ease }}
+        >
+          <span className="intro-loader__logo-text">SV</span>
+          <motion.div 
+            className="intro-loader__logo-line"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: phase >= 2 ? 1 : 0 }}
+            transition={{ duration: 0.4, delay: 0.2, ease }}
+          />
+        </motion.div>
+        
+        {/* Tagline */}
+        <motion.p 
+          className="intro-loader__tagline"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ 
+            opacity: phase >= 2 ? 1 : 0, 
+            y: phase >= 2 ? 0 : 10 
+          }}
+          transition={{ duration: 0.5, delay: 0.3, ease }}
+        >
+          Architecture
+        </motion.p>
+      </div>
+    </motion.div>
+  )
+}
 
 // Animated reveal wrapper
 const Reveal = ({ children, className = '', delay = 0 }) => {
@@ -557,17 +733,31 @@ const Footer = () => {
 
 // Main App
 function App() {
+  const [loading, setLoading] = useState(true)
+  
   return (
     <>
-      <Navigation />
-      <main>
-        <Hero />
-        <Statement />
-        <Work />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
+      <AnimatePresence>
+        {loading && (
+          <IntroLoader onComplete={() => setLoading(false)} />
+        )}
+      </AnimatePresence>
+      
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 0.8, delay: 0.2, ease }}
+      >
+        <Navigation />
+        <main>
+          <Hero />
+          <Statement />
+          <Work />
+          <About />
+          <Contact />
+        </main>
+        <Footer />
+      </motion.div>
     </>
   )
 }
