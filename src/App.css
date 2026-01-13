@@ -356,10 +356,10 @@ em {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    transparent 0%,
-    transparent 40%,
-    rgba(248, 246, 243, 0.4) 70%,
-    rgba(248, 246, 243, 0.95) 100%
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(45, 41, 38, 0.85) 100%
   );
 }
 
@@ -380,15 +380,18 @@ em {
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: var(--space-md);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero__title {
   max-width: 900px;
-  color: var(--color-text);
+  color: var(--color-surface);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .hero__title em {
   display: block;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .hero__scroll {
