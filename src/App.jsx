@@ -197,7 +197,7 @@ const Statement = () => {
   )
 }
 
-// Projects data
+// Projects data with real images from lathearch.com
 const projects = [
   {
     id: 'fremont-bank',
@@ -208,6 +208,7 @@ const projects = [
     role: 'Senior Project Architect',
     description: 'A jewel box presence incorporating electrochromic glazing, sculptural GFRC vertical fins, and an animated LED facade system designed to engage the community.',
     innovations: ['Electrochromic Glass', 'GFRC Vertical Fins', 'Integrated LED Systems', 'Multi-layer Security'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1729912589405-YZ7Q8V32ZVF1966NYTFT/Fremont+10-24+05.jpg',
     color: '#C9B8A8',
     accent: '#C17F59'
   },
@@ -215,11 +216,12 @@ const projects = [
     id: 'the-waymark',
     title: 'The Waymark',
     subtitle: 'Mixed-Use Development',
-    location: 'Oakland, CA',
+    location: 'Walnut Creek, CA',
     year: '2023',
     role: 'Project Architect',
     description: 'Urban precision balancing residential density with activated ground-floor retail and civic plaza space. A study in contextual materiality.',
     innovations: ['Urban Infill', 'Ground-Floor Activation', 'Public Plaza Integration'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1676008390659-PBA3BQKF0P0FLCKF9INO/WM009.jpg',
     color: '#D4CFC7',
     accent: '#8B9080'
   },
@@ -232,6 +234,7 @@ const projects = [
     role: 'Project Architect',
     description: 'Adaptive reuse transforming a mid-century structure into contemporary creative workspace while honoring its original architectural character.',
     innovations: ['Adaptive Reuse', 'Heritage Integration', 'Daylighting Optimization'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1655612112040-56D0C9HC0K8LLVUYBLP0/LA+GILROY_001.jpg',
     color: '#E0D8D0',
     accent: '#9B8B7A'
   },
@@ -244,6 +247,7 @@ const projects = [
     role: 'Project Architect',
     description: 'Community-focused recreation center designed for programmatic flexibility, abundant natural light, and seamless indoor-outdoor connection.',
     innovations: ['Community Design', 'Flexible Programming', 'Indoor-Outdoor Flow'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1676010644422-DNBCGMU5Z1JYQ656OW84/MRC08.jpg',
     color: '#DED6CC',
     accent: '#7A8B9B'
   }
@@ -273,24 +277,11 @@ const ProjectCard = ({ project, index }) => {
           animate={{ scale: isHovered ? 1.03 : 1 }}
           transition={{ duration: 0.8, ease }}
         >
-          <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id={`grad-${project.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor={project.color} />
-                <stop offset="100%" stopColor="#E8E4DE" />
-              </linearGradient>
-            </defs>
-            <rect width="800" height="600" fill={`url(#grad-${project.id})`}/>
-            {/* Architectural composition */}
-            <rect x="50" y="100" width="300" height="400" fill={project.accent} opacity="0.2"/>
-            <rect x="400" y="50" width="350" height="300" fill="#2D2926" opacity="0.06"/>
-            <rect x="500" y="300" width="250" height="250" fill={project.accent} opacity="0.15"/>
-            {/* Detail lines */}
-            {[...Array(6)].map((_, i) => (
-              <line key={i} x1={100 + i * 30} y1="150" x2={100 + i * 30} y2="450" stroke="#2D2926" strokeWidth="1" opacity="0.05"/>
-            ))}
-            <line x1="0" y1="300" x2="800" y2="300" stroke={project.accent} strokeWidth="1" opacity="0.3"/>
-          </svg>
+          <img 
+            src={project.image} 
+            alt={`${project.title} - ${project.subtitle}`}
+            loading="lazy"
+          />
           <motion.div 
             className="project__image-overlay"
             initial={{ opacity: 0 }}
