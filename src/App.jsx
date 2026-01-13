@@ -106,41 +106,21 @@ const Navigation = () => {
   )
 }
 
-// Hero - full-bleed cinematic
+// Hero - full-bleed cinematic with real image
 const Hero = () => {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 800], [0, 200])
   const opacity = useTransform(scrollY, [0, 600], [1, 0])
-  const scale = useTransform(scrollY, [0, 800], [1, 1.1])
+  const scale = useTransform(scrollY, [0, 800], [1, 1.15])
   
   return (
     <section className="hero">
       <motion.div className="hero__media" style={{ y, scale }}>
         <div className="hero__image">
-          {/* Architectural placeholder - geometric composition */}
-          <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#E8E4DE" />
-                <stop offset="100%" stopColor="#D4CFC7" />
-              </linearGradient>
-            </defs>
-            <rect width="1920" height="1080" fill="url(#heroGrad)"/>
-            {/* Architectural forms */}
-            <rect x="0" y="300" width="800" height="780" fill="#2D2926" opacity="0.06"/>
-            <rect x="1200" y="0" width="720" height="600" fill="#B8A898" opacity="0.4"/>
-            <rect x="600" y="400" width="500" height="680" fill="#C9B8A8" opacity="0.3"/>
-            <rect x="1400" y="500" width="520" height="580" fill="#2D2926" opacity="0.05"/>
-            {/* Vertical fins - GFRC reference */}
-            {[...Array(12)].map((_, i) => (
-              <rect key={i} x={150 + i * 50} y="350" width="3" height="400" fill="#2D2926" opacity="0.08"/>
-            ))}
-            {/* Light beam - electrochromic reference */}
-            <rect x="1100" y="0" width="2" height="1080" fill="#C17F59" opacity="0.3"/>
-            {/* Grid lines */}
-            <line x1="0" y1="540" x2="1920" y2="540" stroke="#2D2926" strokeWidth="0.5" opacity="0.1"/>
-            <line x1="960" y1="0" x2="960" y2="1080" stroke="#2D2926" strokeWidth="0.5" opacity="0.1"/>
-          </svg>
+          <img 
+            src="https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1729912589405-YZ7Q8V32ZVF1966NYTFT/Fremont+10-24+05.jpg" 
+            alt="Fremont Bank Headquarters - Architectural facade with GFRC fins"
+          />
         </div>
         <div className="hero__overlay"></div>
       </motion.div>
@@ -207,10 +187,19 @@ const projects = [
     year: '2024',
     role: 'Senior Project Architect',
     description: 'A jewel box presence incorporating electrochromic glazing, sculptural GFRC vertical fins, and an animated LED facade system designed to engage the community.',
-    innovations: ['Electrochromic Glass', 'GFRC Vertical Fins', 'Integrated LED Systems', 'Multi-layer Security'],
+    innovations: ['Electrochromic Glass', 'GFRC Vertical Fins', 'Integrated LED Systems'],
     image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1729912589405-YZ7Q8V32ZVF1966NYTFT/Fremont+10-24+05.jpg',
-    color: '#C9B8A8',
-    accent: '#C17F59'
+  },
+  {
+    id: 'springline',
+    title: 'Springline',
+    subtitle: 'Mixed-Use Campus',
+    location: 'Menlo Park, CA',
+    year: '2023',
+    role: 'Project Architect',
+    description: 'A LEED Gold certified development featuring residential towers, Class-A office space, and extensive amenities around a landscaped central courtyard.',
+    innovations: ['LEED Gold', 'Mass Timber', 'Podium Design'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1655613487703-0PE3IVW15XZTLAF1Y7TN/LA+Springline+012.jpg',
   },
   {
     id: 'the-waymark',
@@ -220,10 +209,30 @@ const projects = [
     year: '2023',
     role: 'Project Architect',
     description: 'Urban precision balancing residential density with activated ground-floor retail and civic plaza space. A study in contextual materiality.',
-    innovations: ['Urban Infill', 'Ground-Floor Activation', 'Public Plaza Integration'],
+    innovations: ['Urban Infill', 'Ground-Floor Activation', 'Public Plaza'],
     image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1676008390659-PBA3BQKF0P0FLCKF9INO/WM009.jpg',
-    color: '#D4CFC7',
-    accent: '#8B9080'
+  },
+  {
+    id: '550-ofarrell',
+    title: "550 O'Farrell",
+    subtitle: 'High-Rise Residential',
+    location: 'San Francisco, CA',
+    year: '2023',
+    role: 'Project Architect',
+    description: 'A 422 DU/Acre tower in the heart of San Francisco, maximizing density while creating a distinctive urban presence on the skyline.',
+    innovations: ['High-Density Housing', 'Urban Tower', 'Transit-Oriented'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1702263318011-X47R28KC65WDVFS3MIHV/550+Street.jpg',
+  },
+  {
+    id: 'field-house',
+    title: 'Field House',
+    subtitle: 'Bay Meadows',
+    location: 'San Mateo, CA',
+    year: '2022',
+    role: 'Project Architect',
+    description: 'Community amenity building anchoring the Bay Meadows master plan, designed to foster connection and serve as a neighborhood gathering space.',
+    innovations: ['Community Hub', 'Master Plan Integration', 'Indoor-Outdoor'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1655611708507-DMAA0R6WBLHXWB9COR39/BM+COLOR+0690.jpg',
   },
   {
     id: '7600-monterey',
@@ -233,31 +242,45 @@ const projects = [
     year: '2022',
     role: 'Project Architect',
     description: 'Adaptive reuse transforming a mid-century structure into contemporary creative workspace while honoring its original architectural character.',
-    innovations: ['Adaptive Reuse', 'Heritage Integration', 'Daylighting Optimization'],
+    innovations: ['Adaptive Reuse', 'Heritage Integration', 'Daylighting'],
     image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1655612112040-56D0C9HC0K8LLVUYBLP0/LA+GILROY_001.jpg',
-    color: '#E0D8D0',
-    accent: '#9B8B7A'
+  },
+  {
+    id: 'austin-energy',
+    title: 'Austin Energy',
+    subtitle: 'Corporate Headquarters',
+    location: 'Austin, TX',
+    year: '2021',
+    role: 'Project Architect',
+    description: 'A landmark headquarters for the municipal utility, featuring a dramatic courtyard and sustainable design strategies befitting an energy company.',
+    innovations: ['Sustainable HQ', 'Courtyard Design', 'Civic Presence'],
+    image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1676005518329-I52E1LTZMLODDQ4DSU37/Austin-Energy-courtyard+from+Harvey+Cleary.jpg',
   },
   {
     id: 'millbrae-recreation',
-    title: 'Millbrae Recreation Center',
-    subtitle: 'Civic Architecture',
+    title: 'Millbrae Recreation',
+    subtitle: 'Civic Center',
     location: 'Millbrae, CA',
     year: '2021',
     role: 'Project Architect',
     description: 'Community-focused recreation center designed for programmatic flexibility, abundant natural light, and seamless indoor-outdoor connection.',
-    innovations: ['Community Design', 'Flexible Programming', 'Indoor-Outdoor Flow'],
+    innovations: ['Community Design', 'Flexible Programming', 'Natural Light'],
     image: 'https://images.squarespace-cdn.com/content/v1/629f7ea45455bf40e552bb36/1676010644422-DNBCGMU5Z1JYQ656OW84/MRC08.jpg',
-    color: '#DED6CC',
-    accent: '#7A8B9B'
   }
 ]
 
-// Project Card - gallery exhibition style
+// Project Card - gallery exhibition style with parallax
 const ProjectCard = ({ project, index }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [isHovered, setIsHovered] = useState(false)
+  
+  // Parallax effect on scroll
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+  const imageY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
   
   const isEven = index % 2 === 0
   
@@ -274,13 +297,14 @@ const ProjectCard = ({ project, index }) => {
       <div className="project__image-wrapper">
         <motion.div 
           className="project__image"
-          animate={{ scale: isHovered ? 1.03 : 1 }}
+          animate={{ scale: isHovered ? 1.02 : 1 }}
           transition={{ duration: 0.8, ease }}
         >
-          <img 
+          <motion.img 
             src={project.image} 
             alt={`${project.title} - ${project.subtitle}`}
             loading="lazy"
+            style={{ y: imageY }}
           />
           <motion.div 
             className="project__image-overlay"
