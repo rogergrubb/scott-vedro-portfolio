@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#F8F6F3"/>
+  <text x="16" y="21" font-family="Georgia, serif" font-size="14" font-weight="400" fill="#2D2926" text-anchor="middle">SV</text>
+  <line x1="8" y1="25" x2="24" y2="25" stroke="#C17F59" stroke-width="1.5"/>
+</svg>
