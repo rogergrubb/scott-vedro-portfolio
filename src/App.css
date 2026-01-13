@@ -967,6 +967,73 @@ html {
   color: var(--color-text-muted);
 }
 
+/* =====================================================
+   CUSTOM CURSOR
+   ===================================================== */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor__ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.custom-cursor__dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.custom-cursor__crosshair {
+  position: fixed;
+  pointer-events: none;
+}
+
+.custom-cursor__line {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.custom-cursor__line--h {
+  width: 20px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor__line--v {
+  width: 1px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Hide default cursor when custom cursor is active */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  
+  a, button, .project, .contact__link, .nav__toggle {
+    cursor: none;
+  }
+}
+
 /* Focus states for accessibility */
 a:focus-visible,
 button:focus-visible {
