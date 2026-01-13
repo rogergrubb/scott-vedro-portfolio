@@ -6,6 +6,108 @@ import './App.css'
 const ease = [0.16, 1, 0.3, 1]
 const easeOut = [0.33, 1, 0.68, 1]
 
+// Custom Architectural Cursor
+const CustomCursor = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isHovering, setIsHovering] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isClicking, setIsClicking] = useState(false)
+  
+  useEffect(() => {
+    // Check if device has fine pointer (mouse)
+    const hasMouse = window.matchMedia('(pointer: fine)').matches
+    if (!hasMouse) return
+    
+    setIsVisible(true)
+    
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY })
+    }
+    
+    const handleMouseOver = (e) => {
+      const target = e.target
+      const isInteractive = 
+        target.tagName === 'A' || 
+        target.tagName === 'BUTTON' ||
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('.project') ||
+        target.closest('.contact__link')
+      setIsHovering(isInteractive)
+    }
+    
+    const handleMouseDown = () => setIsClicking(true)
+    const handleMouseUp = () => setIsClicking(false)
+    
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseover', handleMouseOver)
+    window.addEventListener('mousedown', handleMouseDown)
+    window.addEventListener('mouseup', handleMouseUp)
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseover', handleMouseOver)
+      window.removeEventListener('mousedown', handleMouseDown)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [])
+  
+  if (!isVisible) return null
+  
+  return (
+    <div className="custom-cursor">
+      {/* Outer ring */}
+      <motion.div 
+        className="custom-cursor__ring"
+        animate={{ 
+          x: position.x - 20, 
+          y: position.y - 20,
+          scale: isHovering ? 1.5 : 1,
+          opacity: isHovering ? 0.8 : 0.4
+        }}
+        transition={{ 
+          type: 'spring', 
+          stiffness: 500, 
+          damping: 28,
+          mass: 0.5
+        }}
+      />
+      {/* Center dot */}
+      <motion.div 
+        className="custom-cursor__dot"
+        animate={{ 
+          x: position.x - 3, 
+          y: position.y - 3,
+          scale: isClicking ? 0.8 : 1
+        }}
+        transition={{ 
+          type: 'spring', 
+          stiffness: 1000, 
+          damping: 35
+        }}
+      />
+      {/* Crosshair lines - visible on hover */}
+      <motion.div 
+        className="custom-cursor__crosshair"
+        animate={{ 
+          x: position.x, 
+          y: position.y,
+          opacity: isHovering ? 1 : 0,
+          scale: isHovering ? 1 : 0.5
+        }}
+        transition={{ 
+          type: 'spring', 
+          stiffness: 500, 
+          damping: 28
+        }}
+      >
+        <span className="custom-cursor__line custom-cursor__line--h" />
+        <span className="custom-cursor__line custom-cursor__line--v" />
+      </motion.div>
+    </div>
+  )
+}
+
 // Architectural Intro Loader
 const IntroLoader = ({ onComplete }) => {
   const [phase, setPhase] = useState(0)
@@ -737,6 +839,8 @@ function App() {
   
   return (
     <>
+      <CustomCursor />
+      
       <AnimatePresence>
         {loading && (
           <IntroLoader onComplete={() => setLoading(false)} />
