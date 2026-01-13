@@ -899,6 +899,74 @@ html {
   scroll-padding-top: 100px;
 }
 
+/* =====================================================
+   INTRO LOADER
+   ===================================================== */
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+}
+
+.intro-loader__content {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-loader__grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+.intro-loader__logo {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro-loader__logo-text {
+  font-family: var(--font-serif);
+  font-size: 4.5rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.intro-loader__logo-line {
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-accent);
+  margin-top: 12px;
+  transform-origin: center;
+}
+
+.intro-loader__tagline {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
 /* Focus states for accessibility */
 a:focus-visible,
 button:focus-visible {
